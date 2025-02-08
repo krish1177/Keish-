@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Saagrika ❤️</title>
+    <style>
+        body {
+            background-color: #ffe6f2;
+            text-align: center;
+            font-family: "Arial", sans-serif;
+            color: #ff3385;
+            margin: 0;
+            overflow: hidden;
+            transition: background 1s;
+            position: relative;
+        }
+
+        .emoji-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 30px;
+            animation: float 5s infinite ease-in-out;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #ff3385;
+        }
+
+        p {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .btn-container {
+            margin-top: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .btn {
+            font-size: 20px;
+            padding: 12px 25px;
+            margin: 10px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: absolute;
+        }
+
+        .yes-btn {
+            background-color: #ff4d94;
+            color: white;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .yes-btn:hover {
+            background-color: #e60073;
+        }
+
+        .no-btn {
+            background-color: #ffffff;
+            color: #ff3385;
+            border: 2px solid #ff3385;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .thoughts-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .thought {
+            font-size: 22px;
+            color: #ff3385;
+            margin: 10px 0;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="emoji-background" id="emojiBackground"></div>
+
+    <div class="container">
+        <h1>Saagrika ❤️</h1>
+        <p id="question">Saagrika, ek chhoti si love quiz khele? 😍</p>
+
+        <div class="btn-container">
+            <button class="btn yes-btn" onclick="startQuiz()">Haan chalo! 💕</button>
+        </div>
+    </div>
+
+    <script>
+        let questions = [
+            "Q1: Kya tumhe chocolates pasand hai? 🍫",
+            "Q2: Kya tumhe romantic movies dekhna pasand hai? 🎬",
+            "Q3: Kya tumhe surprises pasand hai? 🎁",
+            "Q4: Kya tum mujhe dekh kar hasi aati hai? 😆",
+            "Last Question: Kya tum mere saath hamesha rahogi? 💖"
+        ];
+
+        let loveThoughts = [
+            "❤️ Jab tum muskurati ho, sab kuch aur sunder lagta hai! ❤️",
+            "💖 Tum meri zindagi ka sabse special part ho! 💖",
+            "😍 Tum bina sab kuch adhoora lagta hai! 😍",
+            "💍 Har janam tumse hi shaadi karna chahta hoon! 💍",
+            "💕 Tum ho to duniya ek fairy tale jaisi lagti hai! 💕",
+            "🌹 Tum meri good morning aur good night dono ho! 🌹",
+            "💑 Teri har hasi meri duniya roshan kar deti hai! 💑",
+            "💘 Tum mere liye ek pyaara sa sapna ho jo kabhi khatam na ho! 💘"
+        ];
+
+        let currentQuestion = 0;
+        let questionPara = document.getElementById("question");
+        let btnContainer = document.querySelector(".btn-container");
+        let noClickCount = 0;
+        let noBtn;
+
+        function startQuiz() {
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length) {
+                questionPara.innerText = questions[currentQuestion];
+
+                btnContainer.innerHTML = `
+                    <button class="btn yes-btn" onclick="nextQuestion()">Haan 💕</button>
+                    <button class="btn no-btn" id="noBtn" onclick="handleNoClick()" onmouseover="moveNoButton()">Nahi 😔</button>
+                `;
+
+                noBtn = document.getElementById("noBtn");
+                noClickCount = 0; // Reset count for new question
+                currentQuestion++;
+            } else {
+                showProposal();
+            }
+        }
+
+        function handleNoClick() {
+            noClickCount++;
+            if (noClickCount === 3) {
+                noBtn.innerText = "Haan 💕";
+                noBtn.classList.add("yes-btn");
+                noBtn.classList.remove("no-btn");
+                noBtn.onclick = nextQuestion;
+            }
+        }
+
+        function moveNoButton() {
+            let x = Math.random() * 200 - 100;
+            let y = Math.random() * 100 - 50;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function showProposal() {
+            questionPara.innerText = "Mujhse shaadi karogi? 💍😍";
+            btnContainer.innerHTML = `
+                <button class="btn yes-btn" onclick="acceptProposal()">Haan! 💖</button>
+                <button class="btn yes-btn" onclick="acceptProposal()">Haan! 💖</button>
+            `;
+        }
+
+        function acceptProposal() {
+            document.body.style.background = "#ffccdd";
+            document.body.innerHTML = `
+                <h1 style="color:#ff3385; margin-top:50px;">Saagrika cutieee han app hamari! 💖</h1>
+                <div class="thoughts-container" id="thoughtsContainer"></div>
+                <p style="font-size: 22px; color: #ff3385;">With love, Krish ❤️</p>
+            `;
+
+            let thoughtsContainer = document.getElementById("thoughtsContainer");
+
+            loveThoughts.forEach((text, index) => {
+                let div = document.createElement("div");
+                div.innerText = text;
+                div.classList.add("thought");
+                div.style.animationDelay = `${index * 1}s`;
+                thoughtsContainer.appendChild(div);
+            });
+        }
+
+        function createFloatingEmojis() {
+            let emojis = ["💖", "😍", "💕", "❤️", "💑", "🌹", "💏", "💞"];
+            let container = document.getElementById("emojiBackground");
+
+            for (let i = 0; i < 30; i++) {
+                let emoji = document.createElement("div");
+                emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.classList.add("emoji");
+                emoji.style.left = Math.random() * 100 + "vw";
+                emoji.style.top = Math.random() * 100 + "vh";
+                emoji.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                container.appendChild(emoji);
+            }
+        }
+
+        createFloatingEmojis();
+    </script>
+
+</body>
+</html>
